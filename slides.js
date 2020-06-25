@@ -11,7 +11,14 @@ slides.forEach(slide => {
     image.style.zIndex = z
     })
 
-    const timeline = gsap.timeline() 
+
+    gsap.set(images, {opacity: 0})
+
+
+    imagesLoaded(images, function() {
+
+
+        const timeline = gsap.timeline() 
 
     timeline
         .set(images, {
@@ -21,7 +28,8 @@ slides.forEach(slide => {
             y: "500%", 
             rotation: () => {
                 return 90 * Math.random() - 45
-            }
+            }, 
+            opacity: 1
         
         })
         .to(images, {x: 0, y: 0, stagger: -0.25})
@@ -30,6 +38,11 @@ slides.forEach(slide => {
             return 16 * Math.random() - 8
         }
     })
+
+    })
+
+    
+    
 
     slide.addEventListener("click", function() {
     z = z - 1; //add 1 to z index every time is clicked
@@ -50,14 +63,19 @@ slides.forEach(slide => {
         .set(currentImage, { x: 0})
         .to(currentImage, { 
             x: direction,
-            rotation: midAngle
+            rotation: midAngle, 
+            rotationY: 90,
+            scale: 1.1
         })
         .set(currentImage, {zIndex: z})
         .to(currentImage, {
             x : 0,
             rotation: () => {
                 return 16 * Math.random() - 8
-            }
+            }, 
+        rotationY: 0,
+        scale: 1
+
         })
 
     images[current].style.zIndex = z;
